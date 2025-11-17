@@ -3,7 +3,14 @@ const Voucher = require('../models/Voucher');
 
 const FIXED_VOUCHER = process.env.FIXED_VOUCHER || 'MPGCA2025VCH';
 
- const diffMinutes = (now - submitted) / (1000 * 60);
+function computeStatusFromDate(submittedAt) {
+  if (!submittedAt) return 'Not submitted';
+  
+  const now = new Date();
+  const submitted = new Date(submittedAt);
+  
+  // Calculate difference in MINUTES
+  const diffMinutes = (now - submitted) / (1000 * 60);
   
   // Status progression based on minutes
   if (diffMinutes >= 2) return 'Verified';      // 2+ minutes → Verified
@@ -61,3 +68,4 @@ exports.status = async (req, res) => {
 };
 
     
+
