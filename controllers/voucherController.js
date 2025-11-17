@@ -3,13 +3,12 @@ const Voucher = require('../models/Voucher');
 
 const FIXED_VOUCHER = process.env.FIXED_VOUCHER || 'MPGCA2025VCH';
 
-function computeStatusFromDate(submittedAt) {
-  if (!submittedAt) return 'Not submitted';
-  const now = new Date();
-  const diffDays = (now - new Date(submittedAt)) / (1000 * 60 * 60 * 24);
-  if (diffDays >= 3) return 'Verified';
-  if (diffDays >= 2) return 'Pending';
-  return 'Submitted';
+ const diffMinutes = (now - submitted) / (1000 * 60);
+  
+  // Status progression based on minutes
+  if (diffMinutes >= 2) return 'Verified';      // 2+ minutes → Verified
+  if (diffMinutes >= 1) return 'Pending';       // 1+ minute → Pending
+  return 'Submitted';                            // < 1 minute → Submitted
 }
 
 exports.submit = async (req, res) => {
@@ -60,4 +59,5 @@ exports.status = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch voucher status' });
   }
 };
+
     
