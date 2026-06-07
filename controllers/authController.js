@@ -1,6 +1,6 @@
 // controllers/authController.js
 // Fixed demo login (no registration). Matches your frontend fixed creds.
-const FIXED_USER = { email: 'MPGCAT@0078', password: 'CNT10087', name: 'Akula Chandra Sekhar' };
+const FIXED_USER = { email: 'MPGCAT@0078', password: 'CNT10087', name: 'Daram Sai Jaswanth Reddy' };
 
 exports.login = (req, res) => {
   const { email, password } = req.body || {};
